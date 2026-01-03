@@ -9,11 +9,11 @@ services:
     image: postgres:14-alpine
     container_name: retail_postgres
     ports:
-      - "5432:5432" # Exposes internal port 5432 to your PC's 5432
+      - "5433:5432" # Changed to 5433 to avoid conflict with Windows Postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres   # Simple password for local dev
-      POSTGRES_DB: retail_db        # Default database
+      POSTGRES_DB: retail_auth        # Default database for our auth domain
     volumes:
       - postgres_data:/var/lib/postgresql/data # Persist data even if container dies
 
