@@ -13,9 +13,12 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres   # Simple password for local dev
-      POSTGRES_DB: retail_auth        # Default database for our auth domain
+      POSTGRES_DB: postgres        # Default database for our auth domain
     volumes:
       - postgres_data:/var/lib/postgresql/data # Persist data even if container dies
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql 
+      # this should only be used for local, docker-entrypoint-initdb.d is a place where we add sql
+      # scripts to be run first time the container starts 
 
   # -------------------------------------------------------------------------
   # REDIS (The Cache & Quick Storage)
