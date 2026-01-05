@@ -3,6 +3,9 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
+// This file is the central source of truth for the Prisma CLI in Prisma 7.
+// It decouples the data structure (schema.prisma) from connectivity (DATABASE_URL),
+// ensuring the CLI always knows where to find the schema, migrations, and how to connect.
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {

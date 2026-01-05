@@ -21,6 +21,8 @@ model Product {
   description   String
   price   Int // stored in cents $10.00 = 1000
   isActive    Boolean   @default(true)
+  images      String[]
+  category    String
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
 
