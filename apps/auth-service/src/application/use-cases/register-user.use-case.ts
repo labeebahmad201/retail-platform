@@ -5,7 +5,6 @@ import { IUSER_REPOSITORY } from "src/domain/repositories/user.repository.interf
 import type { IUserRepository } from "src/domain/repositories/user.repository.interface";
 import { IPASSWORD_HASHER } from "src/domain/services/password-hasher.interface";
 import type { IPasswordHasher } from "src/domain/services/password-hasher.interface";
-import { ConflictException } from "@nestjs/common";
 import { createId } from "@paralleldrive/cuid2";
 
 @Injectable()
@@ -17,13 +16,6 @@ export class RegisterUserUseCase {
     ) { }
 
     async execute(dto: RegisterUserDto): Promise<Omit<User, 'password'>> {
-
-        const existingUser = await this.userRepository.findByEmail(dto.email)
-
-        if (existingUser) {
-            throw new ConflictException("User already exists");
-        }
-
         const hashedPassword = await this.passwordHasher.hash(dto.password)
 
         const newUser = User.create({
