@@ -18,6 +18,7 @@ import { ListProductsUseCase } from './application/use-cases/list-products.use-c
 import { GetProductBySkuUseCase } from './application/use-cases/get-product-by-sku.use-case';
 import { DisableProductUseCase } from './application/use-cases/disable-product.use-case';
 import { EnableProductUseCase } from './application/use-cases/enable-product.use-case';
+import { ListAdminProductsUseCase } from './application/use-cases/list-admin-products.use-case';
 
 // Presentation
 import { ProductAdminController } from './presentation/controllers/product-admin.controller';
@@ -30,9 +31,11 @@ import { ProductPublicController } from './presentation/controllers/product-publ
   providers: [
     AppService,
     PrismaService,
-    CreateProductUseCase,
+    // Use Cases
     ListProductsUseCase,
+    ListAdminProductsUseCase,
     GetProductBySkuUseCase,
+    CreateProductUseCase,
     DisableProductUseCase,
     EnableProductUseCase,
     /**

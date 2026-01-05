@@ -42,6 +42,7 @@ export class PrismaProductRepository implements IProductInterface {
                     isActive: product.isActive,
                     category: product.category,
                     images: product.images,
+                    quantity: product.quantity,
                 }
             })
             return this.mapToDomain(model)
@@ -49,9 +50,6 @@ export class PrismaProductRepository implements IProductInterface {
             if (error && error.code === 'P2002') {
                 const target = error.meta?.target?.[0] || 'unique field';
                 throw new ProductAlreadyExistsException(target);
-            }
-            if (error && error.code === 'P2025') {
-                throw new ProductNotFoundException(product.id);
             }
             throw error;
         }
@@ -69,12 +67,13 @@ export class PrismaProductRepository implements IProductInterface {
                     isActive: product.isActive,
                     category: product.category,
                     images: product.images,
+                    quantity: product.quantity,
                 }
             });
             return this.mapToDomain(model);
         } catch (error: any) {
             if (error && error.code === 'P2025') {
-                throw new ProductNotFoundException(product.id);
+                throw new ProductNotFoundException(product.id || 'unknown');
             }
             throw error;
         }
@@ -143,6 +142,7 @@ export class PrismaProductRepository implements IProductInterface {
             model.isActive,
             model.category,
             model.images,
+            model.quantity,
             model.createdAt,
             model.updatedAt
         )

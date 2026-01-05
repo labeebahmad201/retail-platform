@@ -25,7 +25,8 @@ export class CreateProductUseCase {
             id,
             isActive: true,
             category: dto.category,
-            images: [] // todo: add images.
+            images: [], // todo: add images.
+            quantity: dto.quantity ?? 0,
         })
         return await this.productRepo.save(entity)
     }
