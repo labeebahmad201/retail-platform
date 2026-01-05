@@ -31,7 +31,7 @@ export class Product {
             data.id,
             data.sku,
             data.name,
-            data.description,
+            data.description || '', // it's optional param so transform it to a valid state.
             data.price,
             data.isActive,
             data.category,
