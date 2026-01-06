@@ -29,7 +29,7 @@ import { ITOKEN_SERVICE } from './application/ports/token-service.interface';
   imports: [
     PassportModule,
     JwtModule.register({
-      secret: 'super-secret',
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '2h' }, // Increased for dev comfort
     }),
   ],

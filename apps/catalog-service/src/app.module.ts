@@ -36,7 +36,7 @@ import { JwtAuthGuard } from './infrastructure/security/jwt-auth.guard';
   imports: [
     PassportModule,
     JwtModule.register({
-      secret: 'super-secret',
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '2h' }, // Standardized with Auth
     }),
   ],
