@@ -57,3 +57,4 @@ npm run dev:core
 
 ## 📜 Documentation
 - **[AUTH_CURL_REQUESTS.md](./apps/auth-service/AUTH_CURL_REQUESTS.md)**: Testing guide for the Auth Service.
+- **[CATALOG_CURL_REQUESTS.md](./apps/catalog-service/CATALOG_CURL_REQUESTS.md)**: Testing guide for the Catalog Service.
