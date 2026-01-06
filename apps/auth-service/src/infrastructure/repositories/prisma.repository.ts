@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
-import { IUserRepository } from "src/domain/repositories/user.repository.interface";
-import { User, UserRole } from "src/domain/entities/user.entity";
-import { UserAlreadyExistsException } from "src/domain/exceptions/user-already-exists.exception";
+import { IUserRepository } from "../../domain/repositories/user.repository.interface";
+import { User, UserRole } from "../../domain/entities/user.entity";
+import { UserAlreadyExistsException } from "../../domain/exceptions/user-already-exists.exception";
 import { PrismaService } from "../prisma/prisma.service";
 import { User as PrismaUser } from "./../prisma/generated/client"
 
@@ -12,7 +12,18 @@ export class PrismaRepository implements IUserRepository { // be sure to impleme
 
     async save(user: User): Promise<User> {
         try {
-            const model = await this.prisma.user.create({ data: user });
+            const model = await this.prisma.user.create({
+                data: {
+                    id: user.id,
+                    email: user.email,
+                    password: user.password,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    role: user.role,
+                    status: user.status,
+
+                },
+            });
             return this.mapToDomain(model);
         } catch (error: any) {
             // P2002 is the Prisma error code for Unique Constraint Violation
@@ -55,6 +66,7 @@ export class PrismaRepository implements IUserRepository { // be sure to impleme
             user.firstName,
             user.lastName,
             user.role as UserRole,
+            user.status as any,
             user.createdAt,
             user.updatedAt,
         );

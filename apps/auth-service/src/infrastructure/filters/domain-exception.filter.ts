@@ -1,5 +1,5 @@
-import { ExceptionFilter, Catch, ArgumentsHost, HttpStatus } from '@nestjs/common';
-import { Response } from 'express';
+import { ExceptionFilter, Catch, ArgumentsHost, HttpStatus, HttpException } from '@nestjs/common';
+import { Response, Request } from 'express';
 import { UserAlreadyExistsException } from '../../domain/exceptions/user-already-exists.exception';
 
 /**
@@ -17,9 +17,9 @@ import { UserAlreadyExistsException } from '../../domain/exceptions/user-already
  * 5. Future Growth - If this file grows too large, you can split it into "Domain Groups" 
  *    (e.g., AuthExceptionFilter, CatalogExceptionFilter) to keep the mapping clear.
  */
-@Catch(Error)
+@Catch()
 export class DomainExceptionFilter implements ExceptionFilter {
-    catch(exception: Error, host: ArgumentsHost) {
+    catch(exception: unknown, host: ArgumentsHost) {
         const ctx = host.switchToHttp();
         const response = ctx.getResponse<Response>();
         const request = ctx.getRequest<Request>();
@@ -28,11 +28,20 @@ export class DomainExceptionFilter implements ExceptionFilter {
         let status = HttpStatus.INTERNAL_SERVER_ERROR;
         let message = 'Internal server error';
 
-        // Map Domain Exceptions to HTTP Status Codes
-        if (exception instanceof UserAlreadyExistsException) {
+        if (exception instanceof HttpException) {
+            status = exception.getStatus();
+            message = exception.message;
+        } else if (exception instanceof UserAlreadyExistsException) {
             status = HttpStatus.CONFLICT;
             message = exception.message;
         }
+
+        // CRITICAL DEBUG LOG: This will show us why it's not hitting the controller.
+        console.error('--- DomainExceptionFilter Catch ---');
+        console.error('Exception:', exception);
+        console.error('Status:', status);
+        console.error('Path:', request.url);
+        console.error('-----------------------------------');
 
         // This ensures your API stays professional even as the logic gets complex.
         response.status(status).json({

@@ -1,8 +1,8 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { RegisterUserDto } from "../dtos/register-user.dto";
-import { User } from "src/domain/entities/user.entity";
-import { IUSER_REPOSITORY } from "src/domain/repositories/user.repository.interface";
-import type { IUserRepository } from "src/domain/repositories/user.repository.interface";
+import { User } from "../../domain/entities/user.entity";
+import { IUSER_REPOSITORY } from "../../domain/repositories/user.repository.interface";
+import type { IUserRepository } from "../../domain/repositories/user.repository.interface";
 import { IPASSWORD_HASHER } from "src/domain/services/password-hasher.interface";
 import type { IPasswordHasher } from "src/domain/services/password-hasher.interface";
 import { createId } from "@paralleldrive/cuid2";
@@ -23,6 +23,7 @@ export class RegisterUserUseCase {
             id: createId(),
             password: hashedPassword,
             role: "USER",
+            status: "ACTIVE",
         });
 
         const savedUser = await this.userRepository.save(newUser);

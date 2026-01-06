@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "turbo run start:dev",
+    "dev:core": "turbo run start:dev --filter=auth-service --filter=catalog-service",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint"
   },
   "repository": {
     "type": "git",
@@ -13,6 +17,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "packageManager": "npm@10.2.4",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/labeebahmad201/retail-platform/issues"
@@ -21,5 +26,8 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "turbo": "^2.7.3"
+  }
 }

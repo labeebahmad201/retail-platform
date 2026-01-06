@@ -1,6 +1,6 @@
 import { Inject, Injectable, UnauthorizedException } from "@nestjs/common";
 import { LoginUserDto } from '../dtos/login-user.dto'
-import { User } from "src/domain/entities/user.entity";
+import { User } from "../../domain/entities/user.entity";
 import { IUSER_REPOSITORY } from "../../domain/repositories/user.repository.interface";
 import type { IUserRepository } from "../../domain/repositories/user.repository.interface";
 import { IPASSWORD_HASHER } from "../../domain/services/password-hasher.interface";

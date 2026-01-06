@@ -1,4 +1,5 @@
 export type UserRole = 'ADMIN' | 'USER';
+export type UserStatus = 'ACTIVE' | 'BANNED' | 'SUSPENDED';
 
 export class User {
     constructor(
@@ -8,6 +9,7 @@ export class User {
         public readonly firstName: string,
         public readonly lastName: string,
         public readonly role: UserRole,
+        public readonly status: UserStatus,
         public readonly createdAt: Date,
         public readonly updatedAt: Date,
     ) { }
@@ -20,6 +22,7 @@ export class User {
             data.firstName,
             data.lastName,
             data.role,
+            data.status,
             new Date(),
             new Date(),
         )
