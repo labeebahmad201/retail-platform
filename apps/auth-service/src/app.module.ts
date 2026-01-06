@@ -29,8 +29,8 @@ import { ITOKEN_SERVICE } from './application/ports/token-service.interface';
   imports: [
     PassportModule,
     JwtModule.register({
-      secret: 'super-secret', // Should be an env var
-      signOptions: { expiresIn: '15m' },
+      secret: 'super-secret',
+      signOptions: { expiresIn: '2h' }, // Increased for dev comfort
     }),
   ],
   controllers: [AppController, AuthController],

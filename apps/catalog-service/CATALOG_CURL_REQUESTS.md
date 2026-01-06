@@ -28,14 +28,23 @@ curl -X GET "http://localhost:3001/products/SKU123"
 
 ---
 
+## 🛡️ Authentication Required
+Admin endpoints now require a **JWT Token** with an `ADMIN` role. 
+
+1. **Login to Auth Service** to get the token.
+2. Pass the token in the header: `-H "Authorization: Bearer <your_jwt_token>"`
+
+---
+
 ## Admin API
-These endpoints are used for catalog management. In a production environment, these would be protected by admin roles via the API Gateway or internal headers.
+These endpoints are used for catalog management. They are protected by **JwtAuthGuard** and **RolesGuard**.
 
 ### 3. List All Products (Admin)
 Retrieve all products, including disabled ones.
 
 ```bash
-curl -X GET "http://localhost:3001/admin/products"
+curl -X GET "http://localhost:3001/admin/products" \
+     -H "Authorization: Bearer <your_jwt_token>"
 ```
 
 ---
@@ -46,11 +55,12 @@ Add a new product to the catalog.
 ```bash
 curl -X POST http://localhost:3001/admin/products \
      -H "Content-Type: application/json" \
+     -H "Authorization: Bearer <your_jwt_token>" \
      -d '{
        "name": "Wireless Mouse",
        "sku": "MOUSE-001",
        "description": "Ergonomic 2.4G wireless mouse",
-       "price": 25.99,
+       "price": 2599,
        "category": "peripherals",
        "brand": "TechGear",
        "imageUrl": "http://example.com/mouse.jpg"

@@ -11,8 +11,8 @@ export class JwtTokenService implements ITokenService {
      * @param userId - The ID of the user to generate a token for.
      * @returns A Promise that resolves to the generated JWT token.
      */
-    async generateToken(userId: string): Promise<string> {
-        const payload = { sub: userId };
+    async generateToken(userId: string, email: string, role: string): Promise<string> {
+        const payload = { sub: userId, email, role };
         return await this.jwtService.signAsync(payload);
     }
 }

@@ -1,5 +1,7 @@
 import 'dotenv/config'
 import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -24,9 +26,20 @@ import { ListAdminProductsUseCase } from './application/use-cases/list-admin-pro
 import { ProductAdminController } from './presentation/controllers/product-admin.controller';
 import { ProductPublicController } from './presentation/controllers/product-public.controller';
 
+// Security
+import { JwtStrategy } from './infrastructure/security/jwt.strategy';
+import { RolesGuard } from './infrastructure/security/roles.guard';
+import { JwtAuthGuard } from './infrastructure/security/jwt-auth.guard';
+
 
 @Module({
-  imports: [],
+  imports: [
+    PassportModule,
+    JwtModule.register({
+      secret: 'super-secret',
+      signOptions: { expiresIn: '2h' }, // Standardized with Auth
+    }),
+  ],
   controllers: [AppController, ProductAdminController, ProductPublicController],
   providers: [
     AppService,
@@ -38,6 +51,9 @@ import { ProductPublicController } from './presentation/controllers/product-publ
     CreateProductUseCase,
     DisableProductUseCase,
     EnableProductUseCase,
+    JwtStrategy,
+    JwtAuthGuard,
+    RolesGuard,
     /**
      * 🤝 The Matchmaker (Dependency Injection)
      * 

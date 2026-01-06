@@ -28,7 +28,7 @@ export class LoginUserUseCase {
             throw new UnauthorizedException('Invalid credentials');
         }
 
-        const accessToken = await this.tokenService.generateToken(user.id);
+        const accessToken = await this.tokenService.generateToken(user.id, user.email, user.role);
 
         // Sanitize: We don't want to send the hash back to the UI!
         const { password, ...userWithoutPassword } = user!;
