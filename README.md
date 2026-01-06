@@ -1,4 +1,4 @@
-# Retail Platform: Microservices Engine
+# Retail Platform
 
 A high-performance, resilient retail platform built with **TypeScript**, **NestJS**, **Prisma**, and **PostgreSQL**. Managed as a monorepo using **TurboRepo** and **NPM Workspaces**.
 
